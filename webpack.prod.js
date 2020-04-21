@@ -9,6 +9,14 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
     mode: "production",
     devtool: 'none',
+    entry: './src/component/scroll.js',
+    output: {
+        filename: 'vue-line-scroll.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    externals: {
+        vue: 'vue'
+    },
     // optimization: {
     //     moduleIds: 'hashed',
     //     runtimeChunk: 'single',
@@ -25,6 +33,9 @@ module.exports = merge(common, {
     plugins: [
 
         new CleanWebpackPlugin(),
-
+        // new HtmlWebpackPlugin({
+        //     title: 'Output Management',
+        //     template: path.join(__dirname, 'index.html'),
+        // })
     ],
 });

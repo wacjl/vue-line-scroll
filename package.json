@@ -2,7 +2,7 @@
   "name": "vue-line-scroll",
   "version": "1.0.0",
   "description": "文字上下滚动，简单月份期间选择",
-  "main": "index.js",
+  "main": "dist/vue-line-scroll.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
