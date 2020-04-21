@@ -18,7 +18,7 @@
 
 <script>
 import Item from "@c/item.vue";
-import Scroll from "@c/scroll.vue";
+import Scroll from "../dist/vue-line-scroll.js";
 export default {
   data() {
     return {

@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: "VueScroll",
   props: {
     height: {
       type: String,
