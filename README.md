@@ -69,4 +69,4 @@ export default {
 | len          | 原始数据长度 |
 
 ###  效果
-![RUNOOB 图标](/assets/images/test.png)
+![效果](assets/images/test.png)
