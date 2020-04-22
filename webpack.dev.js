@@ -12,13 +12,29 @@ module.exports = merge(common, {
         contentBase: './dist',
         hot: true
     },
+    optimization: {
+        moduleIds: 'hashed',
+        runtimeChunk: 'single',
 
+
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
+    },
     plugins: [
 
         new webpack.NamedModulesPlugin(),
+        new webpack.PrefetchPlugin(),
         new HtmlWebpackPlugin({
             title: 'Output Management',
             template: path.join(__dirname, 'index.html'),
-        })
+        }),
+
     ],
 });

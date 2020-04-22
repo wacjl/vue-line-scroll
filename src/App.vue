@@ -18,7 +18,7 @@
 
 <script>
 import Item from "@c/item.vue";
-import Scroll from "../dist/vue-line-scroll.js";
+import Scroll from "@c/scroll.vue";
 export default {
   data() {
     return {
@@ -36,6 +36,7 @@ export default {
   },
   computed: {
     scrollData() {
+      console.log(1);
       return [...this.list, ...this.list];
     }
   },
