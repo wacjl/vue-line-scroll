@@ -3,10 +3,12 @@ const merge = require('webpack-merge');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin')
-
+const PreloadPlugin = require('preload-webpack-plugin')
 const common = require('./webpack.common.js');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = merge(common, {
     mode: "production",
     devtool: 'none',
@@ -23,8 +25,8 @@ module.exports = merge(common, {
         extensions: ['*', '.js', '.vue']
     },
     optimization: {
-        moduleIds: 'hashed',
-        runtimeChunk: 'single',
+        moduleIds: 'hashed',// 与
+        runtimeChunk: 'single',//分离webpack运行文件
         minimizer: [
             new TerserPlugin({
                 sourceMap: true, // Must be set to true if using source-maps in production
@@ -33,16 +35,30 @@ module.exports = merge(common, {
                         drop_console: true,
                     },
                 },
-            }),
+            }),//压缩js
+            new OptimizeCSSAssetsPlugin({})//压缩css
         ],
 
         splitChunks: {
+            minSize: 30000,
+            maxSize: 500000,
+            minChunks: 1,
+            name: true,
             cacheGroups: {
-                vendor: {
+
+                commons: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
                     chunks: 'all',
+                    priority: -10,
                 },
+                // 其他chunk文件优化
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                },
+
             },
         },
     },
@@ -52,9 +68,36 @@ module.exports = merge(common, {
         new webpack.LoaderOptionsPlugin({
             minimize: true
         }),
+        new webpack.optimize.MinChunkSizePlugin({
+            minChunkSize: 30000// Minimum number of characters
+        }),
         new HtmlWebpackPlugin({
             title: 'Output Management',
             template: path.join(__dirname, 'index.html'),
-        })
+        }),
+        // 开启gzip
+        new CompressionPlugin({
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 10240,
+            minRatio: 0.8,
+        }),
+        new PreloadPlugin(
+            {
+                rel: 'preload',
+                include: 'initial'
+            }
+        ),
+        /* config.plugin('prefetch') */
+        new PreloadPlugin(
+            {
+                rel: 'prefetch',
+                include: 'asyncChunks'
+            }
+        ),
+        //打包分析
+        //new BundleAnalyzerPlugin()
+
     ],
 });

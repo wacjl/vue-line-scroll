@@ -61,7 +61,7 @@ export default {
         const style = this.getfixCss(
           "transform:translateY(" + 0 + "px);transition-duration:0s"
         );
-        list.style = style;
+        list && (list.style = style);
       }
     },
     startTimer() {
