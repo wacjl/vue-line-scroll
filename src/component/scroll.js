@@ -1,5 +1,9 @@
-import VueScroll from './scroll.vue';
-VueScroll.install = function (Vue) {
-    Vue.component(VueScroll.name, VueScroll);
+import Scroll from './scroll.vue';
+import StepScroll from './step-scroll.vue'
+let MyScroll={}
+MyScroll.install = function (Vue) {
+    Vue.component(Scroll.name, Scroll);
+    Vue.component(StepScroll.name, StepScroll);
 };
-export default VueScroll
+export default MyScroll
+export { Scroll ,StepScroll}

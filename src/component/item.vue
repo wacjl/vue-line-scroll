@@ -1,5 +1,8 @@
 <template>
-  <div class="item">
+  <div
+    class="item"
+    :class="{active:item.active}"
+  >
     {{index}}-{{item.text}}
   </div>
 </template>
@@ -22,5 +25,9 @@ export default {
   padding: 20px 0px;
   line-height: 14px;
   border-bottom: 1px solid #eaeaea;
+}
+.item.active {
+  color: red;
+  border-bottom-color: red;
 }
 </style>
