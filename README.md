@@ -1,9 +1,21 @@
 # vue-line-scroll
 ## 基于vue的list数据循环滚动
 ###  安装
-``` npm install  vue-line-scroll```
+``` 
+npm install  vue-line-scroll
+
+1.全局注册
+
+import VueLineScroll from vue-line-scroll
+Vue.use(VueLineScroll)
+
+2.组件内引入
+
+import { Scroll, StepScroll  } from vue-line-scroll
+
+```
 ### 使用
-1.手动控制，手动控制每个item数据显示，一条一条数据预留
+1.手动控制，手动控制每个item数据显示，一条一条数据预览
 2.循环滚动数据显示
 
 ```javascript
